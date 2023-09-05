@@ -1,8 +1,6 @@
-import {Picker} from '@react-native-picker/picker';
 import React, {useState} from 'react';
 import {
   ActivityIndicator,
-  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -13,8 +11,7 @@ import {
 import Modal from 'react-native-modal';
 import ResultPage from './ResultPage';
 import {searchExercises} from './api/api';
-
-const IS_IOS = Platform.OS === 'ios';
+import CustomPicker from './components/CustomPicker';
 
 function Home() {
   const [name, setName] = useState('');
@@ -58,6 +55,44 @@ function Home() {
     setModalVisible(!isModalVisible);
   };
 
+  const typeData = [
+    {label: 'Select Type', value: ''},
+    {label: 'Cardio', value: 'cardio'},
+    {label: 'Olympic Weightlifting', value: 'olympic_weightlifting'},
+    {label: 'Plyometrics', value: 'plyometrics'},
+    {label: 'Powerlifting', value: 'powerlifting'},
+    {label: 'Strength', value: 'strength'},
+    {label: 'Stretching', value: 'stretching'},
+    {label: 'Strongman', value: 'strongman'},
+  ];
+
+  const muscleData = [
+    {label: 'Select Muscle', value: ''},
+    {label: 'Abdominals', value: 'abdominals'},
+    {label: 'Abductors', value: 'abductors'},
+    {label: 'Adductors', value: 'adductors'},
+    {label: 'Biceps', value: 'biceps'},
+    {label: 'Calves', value: 'calves'},
+    {label: 'Chest', value: 'chest'},
+    {label: 'Forearms', value: 'forearms'},
+    {label: 'Glutes', value: 'glutes'},
+    {label: 'Hamstrings', value: 'hamstrings'},
+    {label: 'Lats', value: 'lats'},
+    {label: 'Lower Back', value: 'lower_back'},
+    {label: 'Middle Back', value: 'middle_back'},
+    {label: 'Neck', value: 'neck'},
+    {label: 'Quadriceps', value: 'quadriceps'},
+    {label: 'Traps', value: 'traps'},
+    {label: 'Triceps', value: 'triceps'},
+  ];
+
+  const difficultyData = [
+    {label: 'Select Difficulty', value: ''},
+    {label: 'Beginner', value: 'beginner'},
+    {label: 'Intermediate', value: 'intermediate'},
+    {label: 'Expert', value: 'expert'},
+  ];
+
   return (
     <View style={styles.container}>
       <ScrollView
@@ -70,54 +105,21 @@ function Home() {
           value={name}
           onChangeText={text => setName(text)}
         />
-        <Picker
-          style={IS_IOS ? styles.inputIOS : styles.input}
+        <CustomPicker
           selectedValue={type}
-          onValueChange={itemValue => setType(itemValue)}>
-          <Picker.Item label="Select Type" value="" />
-          <Picker.Item label="Cardio" value="cardio" />
-          <Picker.Item
-            label="Olympic Weightlifting"
-            value="olympic_weightlifting"
-          />
-          <Picker.Item label="Plyometrics" value="plyometrics" />
-          <Picker.Item label="Powerlifting" value="powerlifting" />
-          <Picker.Item label="Strength" value="strength" />
-          <Picker.Item label="Stretching" value="stretching" />
-          <Picker.Item label="Strongman" value="strongman" />
-        </Picker>
-        <Picker
-          style={IS_IOS ? styles.inputIOS : styles.input}
+          onValueChange={itemValue => setType(itemValue)}
+          data={typeData}
+        />
+        <CustomPicker
           selectedValue={muscle}
-          onValueChange={itemValue => setMuscle(itemValue)}>
-          <Picker.Item label="Select Muscle" value="" />
-          <Picker.Item label="Abdominals" value="abdominals" />
-          <Picker.Item label="Abductors" value="abductors" />
-          <Picker.Item label="Adductors" value="adductors" />
-          <Picker.Item label="Biceps" value="biceps" />
-          <Picker.Item label="Calves" value="calves" />
-          <Picker.Item label="Chest" value="chest" />
-          <Picker.Item label="Forearms" value="forearms" />
-          <Picker.Item label="Glutes" value="glutes" />
-          <Picker.Item label="Hamstrings" value="hamstrings" />
-          <Picker.Item label="Lats" value="lats" />
-          <Picker.Item label="Lower Back" value="lower_back" />
-          <Picker.Item label="Middle Back" value="middle_back" />
-          <Picker.Item label="Neck" value="neck" />
-          <Picker.Item label="Quadriceps" value="quadriceps" />
-          <Picker.Item label="Traps" value="traps" />
-          <Picker.Item label="Triceps" value="triceps" />
-        </Picker>
-
-        <Picker
-          style={IS_IOS ? styles.inputIOS : styles.input}
+          onValueChange={itemValue => setMuscle(itemValue)}
+          data={muscleData}
+        />
+        <CustomPicker
           selectedValue={difficulty}
-          onValueChange={itemValue => setDifficulty(itemValue)}>
-          <Picker.Item label="Select Difficulty" value="" />
-          <Picker.Item label="Beginner" value="beginner" />
-          <Picker.Item label="Intermediate" value="intermediate" />
-          <Picker.Item label="Expert" value="expert" />
-        </Picker>
+          onValueChange={itemValue => setDifficulty(itemValue)}
+          data={difficultyData}
+        />
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
