@@ -1,5 +1,7 @@
 import React, {FC} from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {ScrollView, Text, View} from 'react-native';
+
+import styles from './styles';
 
 interface ResultPageProps {
   data: {
@@ -21,7 +23,7 @@ const ResultPage: FC<ResultPageProps> = ({data, error}) => {
     );
   }
 
-  if (!Array.isArray(data)) {
+  if (!data.length) {
     return (
       <View>
         <Text>No results found.</Text>
@@ -44,23 +46,5 @@ const ResultPage: FC<ResultPageProps> = ({data, error}) => {
     </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-  },
-  text: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#ffffff',
-  },
-  resultContainer: {
-    backgroundColor: '#3fcc7f',
-    marginVertical: 5,
-    padding: 10,
-    borderRadius: 20,
-  },
-});
 
 export default ResultPage;

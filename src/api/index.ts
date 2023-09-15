@@ -1,5 +1,5 @@
 export const searchExercises = async (
-  queryParams: Record<string, string | undefined>,
+  queryParams: Record<string, string>,
   apiKey: string,
 ): Promise<any> => {
   const queryString = new URLSearchParams(queryParams).toString();
@@ -21,8 +21,7 @@ export const searchExercises = async (
       throw new Error('Network response was not ok');
     }
 
-    const data = await response.json();
-    return data;
+    return await response.json();
   } catch (error) {
     console.error(error);
     throw error;
